@@ -521,3 +521,4 @@ SELECT 'Friends and Momos Database Setup Complete!' as message,
        'Admin Login: admin@friendsandmomos.com / admin123' as admin_login,
        'Staff Login: kitchen@friendsandmomos.com / staff123' as staff_login,
        'Customer Login: john.doe@example.com / customer123' as customer_login;
+-- test
