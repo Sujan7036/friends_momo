@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friends and Momos - Cart/Checkout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6d3f7;
+            color: #333;
+        }
+
+        .header {
+            background-color: #fff;
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            border: 2px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .logo h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 0;
+        }
+
+        .nav-btn {
+            padding: 15px 25px;
+            background-color: #8b7355;
+            color: white;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-btn:hover {
+            background-color: #6d5a44;
+        }
+
+        .nav-btn.active {
+            background-color: #5d4a37;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .cart-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .cart-items {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .cart-summary {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #8b7355;
+            padding-bottom: 10px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .item-price {
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .item-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-btn {
+            width: 35px;
+            height: 35px;
+            border: 2px solid #8b7355;
+            background-color: white;
+            color: #8b7355;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .quantity-btn:hover {
+            background-color: #8b7355;
+            color: white;
+        }
+
+        .quantity-display {
+            width: 50px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .remove-btn {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s;
+        }
+
+        .remove-btn:hover {
+            background-color: #cc0000;
+        }
+
+        .item-total {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #333;
+            min-width: 80px;
+            text-align: right;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .summary-row.total {
+            border-top: 2px solid #8b7355;
+            padding-top: 15px;
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: #8b7355;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background-color: #8b7355;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        .checkout-btn:hover {
+            background-color: #6d5a44;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-cart h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .continue-shopping {
+            display: inline-block;
+            background-color: #8b7355;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .continue-shopping:hover {
+            background-color: #6d5a44;
+        }
+
+        @media (max-width: 768px) {
+            .cart-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .cart-item {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .item-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <div class="logo-img">
+                    <img src="images/logo.png" alt="">
+                </div>
+                <h1>Friends and Momos</h1>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-btn">Home</a>
+                <a href="login.html" class="nav-btn">Register/Login</a>
+                <a href="menu.html" class="nav-btn">Menu</a>
+                <a href="cart.html" class="nav-btn active">Carts/Checkouts</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <h2 class="page-title">Shopping Cart</h2>
+        
+        <div class="cart-container">
+            <div class="cart-items">
+                <h3 class="section-title">Your Items</h3>
+                <div id="cart-items-container">
+                    <!-- Cart items will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <div class="cart-summary">
+                <h3 class="section-title">Order Summary</h3>
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">$0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax (8%):</span>
+                    <span id="tax">$0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Delivery:</span>
+                    <span id="delivery">$2.99</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total:</span>
+                    <span id="total">$0.00</span>
+                </div>
+                <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let cart = [];
+
+        function loadCart() {
+            try {
+                const savedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+                cart = savedCart;
+                console.log('Cart loaded:', cart); // Debug log
+            } catch (error) {
+                console.error('Error loading cart:', error);
+                cart = [];
+            }
+            displayCart();
+            updateSummary();
+        }
+
+        function displayCart() {
+            const container = document.getElementById('cart-items-container');
+            
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-cart">
+                        <h3>Your cart is empty</h3>
+                        <p>Add some delicious items from our menu!</p>
+                        <a href="menu.html" class="continue-shopping">Continue Shopping</a>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = cart.map((item, index) => `
+                <div class="cart-item" data-item-index="${index}">
+                    <div class="item-info">
+                        <div class="item-name">${item.name || 'Unknown Item'}</div>
+                        <div class="item-price">$${(item.price || 0).toFixed(2)} each</div>
+                    </div>
+                    <div class="item-controls">
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                            <div class="quantity-display">${item.quantity || 1}</div>
+                            <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                        </div>
+                        <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+                        <div class="item-total">$${((item.price || 0) * (item.quantity || 1)).toFixed(2)}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateQuantity(itemIndex, change) {
+            console.log('Updating quantity for item at index:', itemIndex, 'change:', change); // Debug log
+            
+            if (itemIndex < 0 || itemIndex >= cart.length) {
+                console.error('Invalid item index:', itemIndex);
+                return;
+            }
+
+            const item = cart[itemIndex];
+            if (!item) {
+                console.error('Item not found at index:', itemIndex);
+                return;
+            }
+
+            const newQuantity = (item.quantity || 1) + change;
+            
+            if (newQuantity <= 0) {
+                removeItem(itemIndex);
+                return;
+            }
+
+            item.quantity = newQuantity;
+            saveCart();
+            displayCart();
+            updateSummary();
+        }
+
+        function removeItem(itemIndex) {
+            console.log('Removing item at index:', itemIndex); // Debug log
+            
+            if (itemIndex < 0 || itemIndex >= cart.length) {
+                console.error('Invalid item index:', itemIndex);
+                return;
+            }
+
+            cart.splice(itemIndex, 1);
+            saveCart();
+            displayCart();
+            updateSummary();
+        }
+
+        function saveCart() {
+            try {
+                localStorage.setItem('cart', JSON.stringify(cart));
+                console.log('Cart saved:', cart); // Debug log
+            } catch (error) {
+                console.error('Error saving cart:', error);
+            }
+        }
+
+        function updateSummary() {
+            const subtotal = cart.reduce((sum, item) => {
+                return sum + ((item.price || 0) * (item.quantity || 1));
+            }, 0);
+            
+            const tax = subtotal * 0.08;
+            const delivery = cart.length > 0 ? 2.99 : 0;
+            const total = subtotal + tax + delivery;
+
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('delivery').textContent = cart.length > 0 ? `$${delivery.toFixed(2)}` : '$0.00';
+            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+        }
+
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty. Please add items before checkout.');
+                return;
+            }
+
+            const total = document.getElementById('total').textContent;
+
+            // Save total to localStorage
+            localStorage.setItem('orderTotal', total);
+
+            // Clear cart
+            cart = [];
+            saveCart();
+            displayCart();
+            updateSummary();
+
+            // Redirect to payment.html
+            window.location.href = 'payment.html';
+        }
+
+        // Add some sample items for testing (remove this in production)
+        function addSampleItems() {
+            if (cart.length === 0) {
+                cart = [
+                    { id: '1', name: 'Chicken Momos', price: 8.99, quantity: 2 },
+                    { id: '2', name: 'Veggie Momos', price: 7.99, quantity: 1 },
+                    { id: '3', name: 'Fried Momos', price: 9.99, quantity: 3 }
+                ];
+                saveCart();
+                displayCart();
+                updateSummary();
+            }
+        }
+
+        // Navigation highlighting
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = document.querySelectorAll('.nav-btn');
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Load cart on page load
+            loadCart();
+            
+            // For testing purposes - add sample items if cart is empty
+            // Remove this line in production
+            setTimeout(addSampleItems, 100);
+        });
+    </script>
+</body>
+</html>

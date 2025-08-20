@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment - Friends and Momos</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #dff6f3;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      background-color: #dedede;
+      padding: 10px;
+    }
+
+    header img {
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      margin-right: 15px;
+    }
+
+    header h1 {
+      font-size: 28px;
+      font-weight: bold;
+      text-shadow: 1px 1px 2px #333;
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      margin-left: auto;
+    }
+
+    nav a {
+      padding: 10px 20px;
+      background-color: #957979;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+
+    .go-back {
+      text-align: right;
+      margin: 10px 20px;
+      font-size: 18px;
+      font-family: cursive;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .container h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 2px #222;
+    }
+
+    .payment-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .payment-icons img {
+      height: 40px;
+    }
+
+    .form-row {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 10px 0;
+      flex-wrap: wrap;
+    }
+
+    .form-row label {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .form-row input {
+      padding: 10px;
+      width: 250px;
+      border: 1px solid #999;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .submit-btn {
+      margin-top: 30px;
+    }
+
+    .submit-btn button {
+      padding: 12px 40px;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: #665c91;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .thanks-msg {
+      margin-top: 25px;
+      font-size: 24px;
+      font-style: italic;
+      font-family: cursive;
+    }
+
+    footer {
+      background: url('https://www.transparenttextures.com/patterns/foggy-birds.png'), #e5f3f1;
+      padding: 10px 20px;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer .social-icons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    footer .social-icons img {
+      width: 24px;
+    }
+
+    footer .social-icons span {
+      font-style: italic;
+      font-weight: 600;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="images/logo.png" alt="Logo">
+    <h1>Friends and Momos</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="reservation.html">Reservation</a>
+      <a href="about.html">About us</a>
+    </nav>
+  </header>
+
+  <div class="go-back">
+    <a href="cart.html">Go back to Carts</a>
+  </div>
+
+  <div class="container">
+    <h2>Payment Details</h2>
+
+    <div class="payment-icons">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="MasterCard">
+      
+      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal">
+    </div>
+
+    <div class="form-row">
+      <div>
+        <label for="cardName">Card holder Name</label>
+        <input type="text" id="cardName" required>
+      </div>
+      <div>
+        <label for="cardNumber">Card Number</label>
+        <input type="text" id="cardNumber" maxlength="16" required>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div>
+        <label for="cvv">CVV</label>
+        <input type="password" id="cvv" maxlength="3" required>
+      </div>
+      <div>
+        <label for="expiry">Expiration Date</label>
+        <input type="text" id="expiry" placeholder="MM/YY" required>
+      </div>
+    </div>
+
+    <div class="submit-btn">
+      <button onclick="processPayment()">Make Payment</button>
+    </div>
+
+    <div class="thanks-msg" id="thanksMsg" style="display:none;">
+      Thanks for Choosing<br>Friends and Momos
+    </div>
+  </div>
+
+  <footer>
+    <div>Copyright © 2024 Friends and Momos - All Rights Reserved.</div>
+    <div class="social-icons">
+      <span>Follow us on:</span>
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/3661/3661391.png" alt="TikTok"></a>
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384031.png" alt="Facebook"></a>
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram"></a>
+    </div>
+  </footer>
+
+  <script>
+    function processPayment() {
+      const name = document.getElementById("cardName").value.trim();
+      const number = document.getElementById("cardNumber").value.trim();
+      const cvv = document.getElementById("cvv").value.trim();
+      const expiry = document.getElementById("expiry").value.trim();
+
+      if (!name || !number || !cvv || !expiry) {
+        alert("Please fill all payment details.");
+        return;
+      }
+
+      // Simulate payment processing
+      document.getElementById("thanksMsg").style.display = "block";
+      alert("Payment successful! Thank you!");
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Friends and Momos</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #e3d1f2;
+    }
+    header {
+      background: #f8e9e9;
+      text-align: center;
+      padding: 20px;
+    }
+    header img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      float: left;
+      margin-left: 20px;
+      margin-top: -10px;
+    }
+    header h1 {
+      font-size: 36px;
+      text-shadow: 2px 2px 2px #999;
+      margin: 0;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      background-color: #a89f9f;
+    }
+    nav a {
+      padding: 14px 20px;
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      background-color: #6e6969;
+      margin: 5px;
+      border-radius: 5px;
+    }
+    .menu-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 30px 10px;
+    }
+    .menu-item {
+      width: 300px;
+      background: white;
+      padding: 15px;
+      margin: 10px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    .menu-item img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+    }
+    .item-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin: 10px 0 5px;
+    }
+    .item-details {
+      text-align: left;
+      margin-bottom: 10px;
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      margin-top: 10px;
+    }
+    .controls button {
+      padding: 3px 8px;
+      font-size: 16px;
+    }
+    .add-button {
+      background: #f5f5f5;
+      border: none;
+      padding: 6px 12px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+    @media (max-width: 700px) {
+      .menu-item {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="images/logo.png" alt="Nepal Flag" />
+    <h1>Friends and Momos</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="login.html">Register/Login</a>
+    <a href="reservation.html">Reservation</a>
+    <a href="cart.html">Carts/Checkouts</a>
+  </nav>
+
+  <div class="menu-section">
+
+    <!-- Menu Item Template -->
+    <div class="menu-item" data-name="Momo Combo" data-price="12.99">
+      <img src="images/momo.png" alt="Momo">
+      <div class="item-title">Momo</div>
+      <div class="item-details">
+        Steam - $12.99<br>Fried - $13.99<br>Chilly Momo - $14.99
+      </div>
+      <div class="controls">
+        <button onclick="changeQty(this, -1)">-</button>
+        <span>1</span>
+        <button onclick="changeQty(this, 1)">+</button>
+      </div>
+      <button class="add-button" onclick="addToCart(this)">Add to Order</button>
+    </div>
+
+    <div class="menu-item" data-name="Chowmein" data-price="13.99">
+      <img src="images/chowmin.png" alt="Chowmein">
+      <div class="item-title">Chowmein</div>
+      <div class="item-details">
+        Veg - $13.99<br>Chicken - $15.99<br>Buff - $14.99
+      </div>
+      <div class="controls">
+        <button onclick="changeQty(this, -1)">-</button>
+        <span>1</span>
+        <button onclick="changeQty(this, 1)">+</button>
+      </div>
+      <button class="add-button" onclick="addToCart(this)">Add to Order</button>
+    </div>
+
+    <div class="menu-item" data-name="Laphing" data-price="11.99">
+      <img src="images/laphing.png" alt="Laphing">
+      <div class="item-title">Laphing</div>
+      <div class="item-details">
+        Jhol - $11.99<br>Dry - $10.99
+      </div>
+      <div class="controls">
+        <button onclick="changeQty(this, -1)">-</button>
+        <span>1</span>
+        <button onclick="changeQty(this, 1)">+</button>
+      </div>
+      <button class="add-button" onclick="addToCart(this)">Add to Order</button>
+    </div>
+
+    <div class="menu-item" data-name="Aaloo Nimki" data-price="8.99">
+      <img src="images/allonimkin.png" alt="Aaloo Nimki">
+      <div class="item-title">Aaloo Nimki - $8.99</div>
+      <div class="controls">
+        <button onclick="changeQty(this, -1)">-</button>
+        <span>1</span>
+        <button onclick="changeQty(this, 1)">+</button>
+      </div>
+      <button class="add-button" onclick="addToCart(this)">Add to Order</button>
+    </div>
+
+    <div class="menu-item" data-name="PaniPuri" data-price="9.99">
+      <img src="images/panipuri.png" alt="PaniPuri">
+      <div class="item-title">PaniPuri - $9.99 per 6 pcs</div>
+      <div class="controls">
+        <button onclick="changeQty(this, -1)">-</button>
+        <span>1</span>
+        <button onclick="changeQty(this, 1)">+</button>
+      </div>
+      <button class="add-button" onclick="addToCart(this)">Add to Order</button>
+    </div>
+
+  </div>
+
+  <script>
+    function changeQty(button, delta) {
+      const span = button.parentElement.querySelector('span');
+      let value = parseInt(span.innerText);
+      value = Math.max(1, value + delta);
+      span.innerText = value;
+    }
+
+    function addToCart(button) {
+      const item = button.closest(".menu-item");
+      const name = item.dataset.name;
+      const price = parseFloat(item.dataset.price);
+      const quantity = parseInt(item.querySelector("span").innerText);
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      // Check if item already in cart
+      const existing = cart.find(i => i.name === name);
+      if (existing) {
+        existing.quantity += quantity;
+      } else {
+        cart.push({ name, price, quantity });
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`${quantity} x ${name} added to cart.`);
+    }
+  </script>
+
+</body>
+</html>
